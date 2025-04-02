@@ -1,0 +1,71 @@
+.logo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 15px 5px;
+}
+
+.logo.collapsed {
+  justify-content: center; /* Centra el MenuButton cuando el menú está colapsado */
+}
+
+.logo-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.logo-info img {
+  height: 45px;
+}
+
+.logo-text {
+  font-size: 18px;
+  font-weight: bold;
+  color: #000;
+}
+
+.menu-button {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  color: #000;
+}
+
+.menu-button:hover {
+  color: #93d50b; /* Cambia el color al pasar el mouse */
+}
+
+/* .ant-layout-sider {
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+} */
+
+.ant-menu-item-selected {
+  background-color: #93d50b !important;
+  color: #fff !important;
+}
+
+.ant-menu-item-selected:hover {
+  background-color: #7fbf0a !important;
+}
+
+.ant-layout-content {
+  background: #f2f7fa;
+  padding: 24px;
+  min-height: 280px;
+}
+
+.layout-sider {
+  color: #fff;
+  background-color: #fff;
+  border: 1px solid #f6f5f8;
+}
+
+.layout-menu {
+  background-color: #fff;
+  color: #fff;
+}
