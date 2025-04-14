@@ -1,82 +1,106 @@
 import React, { useState } from "react";
 import {
-  Menu as MenuButton,
-  Gauge,
-  Cog,
-  Compass,
-  BarChart,
-} from "lucide-react";
-import { Layout, Menu } from "antd";
-import Navigation from "../Navigation/Navigation";
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  FileOutlined,
+  DashboardOutlined,
+  SettingOutlined,
+  UserOutlined,
+  SwapOutlined,
+  FilePdfOutlined,
+} from "@ant-design/icons";
+import { Button, Layout, Menu, theme } from "antd";
 import "./Home.css";
 import logo from "../../assets/images/logo-proyecto.png";
 
-const { Sider, Content } = Layout;
+const { Header, Sider, Content } = Layout;
 
 export default function Home() {
   const [collapsed, setCollapsed] = useState(false);
-
-  const toggleMenu = () => {
-    setCollapsed(!collapsed);
-  };
+  const {
+    token: { colorBgContainer, borderRadiusLG },
+  } = theme.useToken();
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
-      <Sider
-        collapsible
-        collapsed={collapsed}
-        onCollapse={setCollapsed}
-        trigger={null}
-        breakpoint="lg"
-        collapsedWidth="80"
-        className="layout-sider"
-      >
-        <div className={`logo ${collapsed ? "collapsed" : ""}`}>
-          {!collapsed && (
-            <div className="logo-info">
-              <img src={logo} alt="Logo" />
-              <span className="logo-text">MetroTrack</span>
-            </div>
-          )}
-          <MenuButton onClick={toggleMenu} className="menu-button" />
+      <Sider trigger={null} collapsible collapsed={collapsed}>
+        <div className="sider-logo">
+          <img src={logo} alt="Logo" />
+          {!collapsed && <span className="sider-title">MetroTrack</span>}
         </div>
         <Menu
-          theme="light"
+          theme="dark"
           mode="inline"
           defaultSelectedKeys={["1"]}
           items={[
             {
               key: "1",
-              icon: <Gauge />,
+              icon: <DashboardOutlined />,
               label: "Dashboard",
             },
             {
               key: "2",
-              icon: <Cog />,
+              icon: <SettingOutlined />,
               label: "Catálogos",
+              children: [
+                {
+                  key: "2-1",
+                  icon: <UserOutlined />,
+                  label: "Usuarios",
+                },
+                {
+                  key: "2-2",
+                  icon: <SwapOutlined />,
+                  label: "Rutas",
+                },
+              ],
             },
             {
               key: "3",
-              icon: <Compass />,
-              label: "Explorar",
-            },
-            {
-              key: "4",
-              icon: <BarChart />,
+              icon: <FileOutlined />,
               label: "Reportes",
+              children: [
+                {
+                  key: "3-1",
+                  icon: <FilePdfOutlined />,
+                  label: "Ventas",
+                },
+                {
+                  key: "3-2",
+                  icon: <FilePdfOutlined />,
+                  label: "Inventario",
+                },
+              ],
             },
           ]}
-          className="layout-menu"
         />
       </Sider>
 
       <Layout>
-        <div className="layout-navigation">
-          <Navigation />
-        </div>
+        <Header style={{ padding: 0, background: colorBgContainer }}>
+          <Button
+            type="text"
+            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            onClick={() => setCollapsed(!collapsed)}
+            style={{
+              fontSize: "16px",
+              width: 64,
+              height: 64,
+            }}
+          />
+        </Header>
 
-        <Content className="layout-content">
+        <Content
+          style={{
+            margin: "24px 16px",
+            padding: 24,
+            minHeight: 280,
+            background: colorBgContainer,
+            borderRadius: borderRadiusLG,
+          }}
+        >
           <h1>Bienvenido al sistema MetroTrack</h1>
+          <p>Contenido</p>
         </Content>
       </Layout>
     </Layout>
