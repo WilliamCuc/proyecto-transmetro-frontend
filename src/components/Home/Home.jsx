@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -8,18 +9,41 @@ import {
   UserOutlined,
   SwapOutlined,
   FilePdfOutlined,
+  BranchesOutlined,
 } from "@ant-design/icons";
 import { Button, Layout, Menu, theme } from "antd";
 import "./Home.css";
 import logo from "../../assets/images/logo-proyecto.png";
+import User from "../User/User";
+import Dashboard from "../Dashboard/Dashboard";
+import TRoute from "../TRoute/TRoute";
+import Lines from "../Lines/Lines";
 
 const { Header, Sider, Content } = Layout;
 
 export default function Home() {
   const [collapsed, setCollapsed] = useState(false);
+  const navigate = useNavigate();
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  const handleMenuClick = ({ key }) => {
+    switch(key) {
+      case "1":
+        navigate("/home/dashboard");
+        break;
+      case "2-1":
+        navigate("/home/users");
+        break;
+      case "2-2":
+        navigate("/home/routes");
+        break;
+      case "2-3":
+        navigate("/home/lines");
+        break;
+    }
+  };
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -32,6 +56,7 @@ export default function Home() {
           theme="dark"
           mode="inline"
           defaultSelectedKeys={["1"]}
+          onClick={handleMenuClick}
           items={[
             {
               key: "1",
@@ -52,6 +77,11 @@ export default function Home() {
                   key: "2-2",
                   icon: <SwapOutlined />,
                   label: "Rutas",
+                },
+                {
+                  key: "2-3",
+                  icon: <BranchesOutlined />,
+                  label: "Lineas",
                 },
               ],
             },
@@ -99,8 +129,13 @@ export default function Home() {
             borderRadius: borderRadiusLG,
           }}
         >
-          <h1>Bienvenido al sistema MetroTrack</h1>
-          <p>Contenido</p>
+          <Routes>
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="users/*" element={<User />} />
+            <Route path="routes" element={<TRoute />} />
+            <Route path="lines" element={<Lines />} />
+            <Route index element={<Dashboard />} />
+          </Routes>
         </Content>
       </Layout>
     </Layout>
