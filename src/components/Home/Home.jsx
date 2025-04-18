@@ -10,6 +10,7 @@ import {
   SwapOutlined,
   FilePdfOutlined,
   BranchesOutlined,
+  FullscreenExitOutlined,
 } from "@ant-design/icons";
 import { Button, Layout, Menu, theme } from "antd";
 import "./Home.css";
@@ -18,7 +19,7 @@ import User from "../User/User";
 import Dashboard from "../Dashboard/Dashboard";
 import TRoute from "../TRoute/TRoute";
 import Lines from "../Lines/Lines";
-
+import Station from "../Station/Station";
 const { Header, Sider, Content } = Layout;
 
 export default function Home() {
@@ -41,6 +42,9 @@ export default function Home() {
         break;
       case "2-3":
         navigate("/home/lines");
+        break;
+      case "2-4":
+        navigate("/home/stations");
         break;
     }
   };
@@ -82,6 +86,11 @@ export default function Home() {
                   key: "2-3",
                   icon: <BranchesOutlined />,
                   label: "Lineas",
+                },
+                {
+                  key: "2-4",
+                  icon: <FullscreenExitOutlined />,
+                  label: "Estaciones",
                 },
               ],
             },
@@ -134,6 +143,7 @@ export default function Home() {
             <Route path="users/*" element={<User />} />
             <Route path="routes" element={<TRoute />} />
             <Route path="lines" element={<Lines />} />
+            <Route path="stations" element={<Station />} />
             <Route index element={<Dashboard />} />
           </Routes>
         </Content>
