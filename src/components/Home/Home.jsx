@@ -11,6 +11,7 @@ import {
   FilePdfOutlined,
   BranchesOutlined,
   FullscreenExitOutlined,
+  CarOutlined,
 } from "@ant-design/icons";
 import { Button, Layout, Menu, theme } from "antd";
 import "./Home.css";
@@ -20,6 +21,8 @@ import Dashboard from "../Dashboard/Dashboard";
 import TRoute from "../TRoute/TRoute";
 import Lines from "../Lines/Lines";
 import Station from "../Station/Station";
+import Parking from "../Parking/Parking";
+
 const { Header, Sider, Content } = Layout;
 
 export default function Home() {
@@ -30,7 +33,7 @@ export default function Home() {
   } = theme.useToken();
 
   const handleMenuClick = ({ key }) => {
-    switch(key) {
+    switch (key) {
       case "1":
         navigate("/home/dashboard");
         break;
@@ -45,6 +48,9 @@ export default function Home() {
         break;
       case "2-4":
         navigate("/home/stations");
+        break;
+      case "2-5":
+        navigate("/home/parking");
         break;
     }
   };
@@ -91,6 +97,11 @@ export default function Home() {
                   key: "2-4",
                   icon: <FullscreenExitOutlined />,
                   label: "Estaciones",
+                },
+                {
+                  key: "2-5",
+                  icon: <CarOutlined />,
+                  label: "Parqueo",
                 },
               ],
             },
@@ -144,6 +155,7 @@ export default function Home() {
             <Route path="routes" element={<TRoute />} />
             <Route path="lines" element={<Lines />} />
             <Route path="stations" element={<Station />} />
+            <Route path="parking" element={<Parking />} />
             <Route index element={<Dashboard />} />
           </Routes>
         </Content>
