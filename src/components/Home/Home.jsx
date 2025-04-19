@@ -12,6 +12,7 @@ import {
   BranchesOutlined,
   FullscreenExitOutlined,
   CarOutlined,
+  CalendarOutlined,
 } from "@ant-design/icons";
 import { Button, Layout, Menu, theme } from "antd";
 import "./Home.css";
@@ -76,7 +77,7 @@ export default function Home() {
             {
               key: "2",
               icon: <SettingOutlined />,
-              label: "Catálogos",
+              label: "Configuración",
               children: [
                 {
                   key: "2-1",
@@ -121,6 +122,11 @@ export default function Home() {
                   label: "Inventario",
                 },
               ],
+            },
+            {
+              key: "4",
+              icon: <CalendarOutlined />,
+              label: "Horarios",
             },
           ]}
         />
