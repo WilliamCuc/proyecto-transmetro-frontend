@@ -2,13 +2,13 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  height: 80vh; /* Ocupa toda la altura de la ventana */
+  height: 80vh;
   padding: 16px;
   box-sizing: border-box;
 }
 
 .dashboard-map {
-  flex: 2; /* El mapa ocupa más espacio */
+  flex: 2;
   display: flex;
   justify-content: center;
   align-items: center;

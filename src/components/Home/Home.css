@@ -52,3 +52,19 @@
 .ant-menu-sub {
   background-color: #001529 !important;
 }
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.header-actions .ant-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-actions .ant-avatar {
+  cursor: pointer;
+}

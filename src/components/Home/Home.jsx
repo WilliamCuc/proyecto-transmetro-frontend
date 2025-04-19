@@ -13,8 +13,11 @@ import {
   FullscreenExitOutlined,
   CarOutlined,
   CalendarOutlined,
+  BellOutlined,
+  LogoutOutlined,
+  MailOutlined,
 } from "@ant-design/icons";
-import { Button, Layout, Menu, theme } from "antd";
+import { Button, Layout, Menu, theme, Dropdown, Avatar, Badge } from "antd";
 import "./Home.css";
 import logo from "../../assets/images/logo-proyecto.png";
 import User from "../User/User";
@@ -133,7 +136,15 @@ export default function Home() {
       </Sider>
 
       <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }}>
+        <Header
+          style={{
+            padding: "0 16px",
+            background: colorBgContainer,
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
           <Button
             type="text"
             icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
@@ -144,6 +155,56 @@ export default function Home() {
               height: 64,
             }}
           />
+          <div className="header-actions">
+            <Dropdown
+              menu={{
+                items: [
+                  {
+                    key: "1",
+                    icon: <MailOutlined />,
+                    label: "Notificación 1",
+                  },
+                  { key: "2", icon: <MailOutlined />, label: "Notificación 2" },
+                  { key: "3", icon: <MailOutlined />, label: "Notificación 3" },
+                  { key: "4", icon: <MailOutlined />, label: "Notificación 4" },
+                  { key: "5", icon: <MailOutlined />, label: "Notificación 5" },
+                ],
+              }}
+              placement="bottomRight"
+              trigger={["click"]}
+            >
+              <Badge count={5}>
+                <Button
+                  type="text"
+                  icon={<BellOutlined style={{ fontSize: "20px" }} />}
+                />
+              </Badge>
+            </Dropdown>
+
+            <Dropdown
+              menu={{
+                items: [
+                  {
+                    key: "1",
+                    icon: <UserOutlined />,
+                    label: "Configurar Perfil",
+                  },
+                  {
+                    key: "2",
+                    icon: <LogoutOutlined />,
+                    label: "Cerrar Sesión",
+                  },
+                ],
+              }}
+              placement="bottomRight"
+              trigger={["click"]}
+            >
+              <Avatar
+                style={{ backgroundColor: "#001529", cursor: "pointer" }}
+                icon={<UserOutlined />}
+              />
+            </Dropdown>
+          </div>
         </Header>
 
         <Content

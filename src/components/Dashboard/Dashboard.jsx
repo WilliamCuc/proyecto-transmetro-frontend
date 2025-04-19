@@ -13,7 +13,7 @@ export default function Dashboard() {
                 <BusFront size={68} />
               </div>
               <div className="dashboard-card-content">
-                <div className="dashboard-card-value">10</div>
+                <div className="dashboard-card-value">39</div>
                 <div className="dashboard-card-title">Total Buses</div>
               </div>
             </div>
