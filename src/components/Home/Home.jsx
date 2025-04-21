@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import {
   MenuFoldOutlined,
@@ -20,6 +20,7 @@ import {
 import { Button, Layout, Menu, theme, Dropdown, Avatar, Badge } from "antd";
 import "./Home.css";
 import logo from "../../assets/images/logo-proyecto.png";
+import { AuthContext } from "../../context/Auth/AuthContext";
 import User from "../User/User";
 import Dashboard from "../Dashboard/Dashboard";
 import TRoute from "../TRoute/TRoute";
@@ -35,6 +36,8 @@ export default function Home() {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  const { logout } = useContext(AuthContext);
 
   const handleMenuClick = ({ key }) => {
     switch (key) {
@@ -186,13 +189,14 @@ export default function Home() {
                 items: [
                   {
                     key: "1",
-                    icon: <UserOutlined />,
+                    icon: <SettingOutlined />,
                     label: "Configurar Perfil",
                   },
                   {
                     key: "2",
                     icon: <LogoutOutlined />,
                     label: "Cerrar Sesión",
+                    onClick: logout,
                   },
                 ],
               }}
