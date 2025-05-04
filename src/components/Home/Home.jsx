@@ -16,6 +16,9 @@ import {
   BellOutlined,
   LogoutOutlined,
   MailOutlined,
+  InsertRowLeftOutlined,
+  UserSwitchOutlined,
+  EnvironmentOutlined,
 } from "@ant-design/icons";
 import { Button, Layout, Menu, theme, Dropdown, Avatar, Badge } from "antd";
 import "./Home.css";
@@ -27,6 +30,10 @@ import TRoute from "../TRoute/TRoute";
 import Lines from "../Lines/Lines";
 import Station from "../Station/Station";
 import Parking from "../Parking/Parking";
+import Bus from "../Bus/Bus";
+import Pilot from "../Pilot/Pilot";
+import Schedule from "../Schedule/Schedule";
+import Stop from "../Stop/Stop";
 
 const { Header, Sider, Content } = Layout;
 
@@ -58,6 +65,18 @@ export default function Home() {
         break;
       case "2-5":
         navigate("/home/parking");
+        break;
+      case "2-6":
+        navigate("/home/bus");
+        break;
+      case "2-7":
+        navigate("/home/pilot");
+        break;
+      case "4":
+        navigate("/home/schedule");
+        break;
+      case "5":
+        navigate("/home/stops");
         break;
     }
   };
@@ -107,8 +126,18 @@ export default function Home() {
                 },
                 {
                   key: "2-5",
-                  icon: <CarOutlined />,
+                  icon: <InsertRowLeftOutlined />,
                   label: "Parqueo",
+                },
+                {
+                  key: "2-6",
+                  icon: <CarOutlined />,
+                  label: "Buses",
+                },
+                {
+                  key: "2-7",
+                  icon: <UserSwitchOutlined />,
+                  label: "Piloto",
                 },
               ],
             },
@@ -133,6 +162,11 @@ export default function Home() {
               key: "4",
               icon: <CalendarOutlined />,
               label: "Horarios",
+            },
+            {
+              key: "5",
+              icon: <EnvironmentOutlined />,
+              label: "Paradas",
             },
           ]}
         />
@@ -227,6 +261,10 @@ export default function Home() {
             <Route path="lines" element={<Lines />} />
             <Route path="stations" element={<Station />} />
             <Route path="parking" element={<Parking />} />
+            <Route path="bus" element={<Bus />} />
+            <Route path="pilot" element={<Pilot />} />
+            <Route path="schedule" element={<Schedule />} />
+            <Route path="stops" element={<Stop />} />
             <Route index element={<Dashboard />} />
           </Routes>
         </Content>
