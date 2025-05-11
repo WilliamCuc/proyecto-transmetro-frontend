@@ -69,3 +69,9 @@
 .header-actions .ant-avatar {
   cursor: pointer;
 }
+
+.sider-menu {
+  height: calc(97vh - 64px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}

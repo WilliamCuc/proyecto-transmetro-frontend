@@ -19,6 +19,7 @@ import {
   InsertRowLeftOutlined,
   UserSwitchOutlined,
   EnvironmentOutlined,
+  VerticalAlignTopOutlined,
 } from "@ant-design/icons";
 import { Button, Layout, Menu, theme, Dropdown, Avatar, Badge } from "antd";
 import "./Home.css";
@@ -34,6 +35,8 @@ import Bus from "../Bus/Bus";
 import Pilot from "../Pilot/Pilot";
 import Schedule from "../Schedule/Schedule";
 import Stop from "../Stop/Stop";
+import Guard from "../Guard/Guard";
+import Access from "../Access/Access";
 
 const { Header, Sider, Content } = Layout;
 
@@ -72,6 +75,12 @@ export default function Home() {
       case "2-7":
         navigate("/home/pilot");
         break;
+      case "2-8":
+        navigate("/home/access");
+        break;
+      case "2-9":
+        navigate("/home/guard");
+        break;
       case "4":
         navigate("/home/schedule");
         break;
@@ -89,6 +98,7 @@ export default function Home() {
           {!collapsed && <span className="sider-title">MetroTrack</span>}
         </div>
         <Menu
+          className="sider-menu"
           theme="dark"
           mode="inline"
           defaultSelectedKeys={["1"]}
@@ -127,7 +137,7 @@ export default function Home() {
                 {
                   key: "2-5",
                   icon: <InsertRowLeftOutlined />,
-                  label: "Parqueo",
+                  label: "Parqueos",
                 },
                 {
                   key: "2-6",
@@ -137,7 +147,17 @@ export default function Home() {
                 {
                   key: "2-7",
                   icon: <UserSwitchOutlined />,
-                  label: "Piloto",
+                  label: "Pilotos",
+                },
+                {
+                  key: "2-8",
+                  icon: <VerticalAlignTopOutlined />,
+                  label: "Accesos",
+                },
+                {
+                  key: "2-9",
+                  icon: <UserSwitchOutlined />,
+                  label: "Guardias",
                 },
               ],
             },
@@ -265,6 +285,8 @@ export default function Home() {
             <Route path="pilot" element={<Pilot />} />
             <Route path="schedule" element={<Schedule />} />
             <Route path="stops" element={<Stop />} />
+            <Route path="guard" element={<Guard />} />
+            <Route path="access" element={<Access />} />
             <Route index element={<Dashboard />} />
           </Routes>
         </Content>
