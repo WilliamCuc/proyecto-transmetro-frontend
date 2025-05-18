@@ -35,6 +35,7 @@ export const stationApiService = {
         nombre: stationData.nombre,
         ubicacion: stationData.ubicacion,
         id_municipio: stationData.id_municipio.toString(),
+        id_linea: stationData.id_linea.toString(),
       });
       const response = await axiosService.post(
         `${STATION_API_ROUTES.STATION_CREATE}?${params.toString()}`
@@ -54,6 +55,7 @@ export const stationApiService = {
         nombre: stationData.nombre,
         ubicacion: stationData.ubicacion,
         id_municipio: stationData.id_municipio.toString(),
+        id_linea: stationData.id_linea.toString(),
       });
       const response = await axiosService.put(
         `${STATION_API_ROUTES.STATION_UPDATE}?${params.toString()}`

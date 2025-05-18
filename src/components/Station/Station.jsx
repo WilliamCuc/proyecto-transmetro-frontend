@@ -13,6 +13,7 @@ import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import { stationApiService } from "../../api/station/stationApiService";
 import { departmentApiService } from "../../api/department/departmentApiService";
 import { municipalityApiService } from "../../api/municipality/municipalityApiService";
+import { lineApiService } from "../../api/line/lineApiService";
 
 const Station = () => {
   const [stations, setStations] = useState([]);
@@ -21,6 +22,8 @@ const Station = () => {
   const [loading, setLoading] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [editingStation, setEditingStation] = useState(null);
+  const [lines, setLines] = useState([]);
+
   const [form] = Form.useForm();
 
   const fetchStations = async () => {
@@ -32,6 +35,15 @@ const Station = () => {
       message.error("Error al cargar las estaciones: " + error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchLines = async () => {
+    try {
+      const data = await lineApiService.getAllLines();
+      setLines(data);
+    } catch (error) {
+      message.error("Error al cargar las líneas: " + error);
     }
   };
 
@@ -58,6 +70,7 @@ const Station = () => {
   useEffect(() => {
     fetchStations();
     fetchDepartments();
+    fetchLines();
   }, []);
 
   const handleDepartmentChange = (departmentId) => {
@@ -80,6 +93,15 @@ const Station = () => {
       title: "Ubicación",
       dataIndex: "ubicacion",
       key: "ubicacion",
+    },
+    {
+      title: "Línea",
+      dataIndex: "id_linea",
+      key: "id_linea",
+      render: (id_linea) => {
+        const line = lines.find((l) => l.id_linea === id_linea);
+        return line ? line.nombre : "Desconocida";
+      },
     },
     {
       title: "Departamento",
@@ -125,6 +147,7 @@ const Station = () => {
       ubicacion: station.ubicacion,
       id_municipio: station.id_municipio,
       id_departamento: station.id_departamento,
+      id_linea: station.id_linea,
     });
     setIsModalVisible(true);
   };
@@ -157,6 +180,7 @@ const Station = () => {
           nombre: values.nombre,
           ubicacion: values.ubicacion,
           id_municipio: values.id_municipio,
+          id_linea: values.id_linea,
         };
 
         await stationApiService.updateStation(
@@ -169,6 +193,7 @@ const Station = () => {
           nombre: values.nombre,
           ubicacion: values.ubicacion,
           id_municipio: values.id_municipio,
+          id_linea: values.id_linea,
         };
 
         await stationApiService.createStation(createData);
@@ -219,7 +244,6 @@ const Station = () => {
           >
             <Input />
           </Form.Item>
-
           <Form.Item
             name="ubicacion"
             label="Ubicación"
@@ -232,7 +256,24 @@ const Station = () => {
           >
             <Input />
           </Form.Item>
-
+          <Form.Item
+            name="id_linea"
+            label="Línea"
+            rules={[
+              {
+                required: true,
+                message: "Por favor selecciona la línea",
+              },
+            ]}
+          >
+            <Select placeholder="Selecciona una línea">
+              {lines.map((line) => (
+                <Select.Option key={line.id_linea} value={line.id_linea}>
+                  {line.nombre}
+                </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
           <Form.Item
             name="id_departamento"
             label="Departamento"

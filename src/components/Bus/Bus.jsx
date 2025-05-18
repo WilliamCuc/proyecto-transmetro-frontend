@@ -12,10 +12,12 @@ import {
 import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import { busApiService } from "../../api/bus/busApiService";
 import { parkingApiService } from "../../api/parking/parkingApiService";
+import { trouteApiService } from "../../api/troute/trouteApiService";
 
 const Bus = () => {
   const [buses, setBuses] = useState([]);
   const [parkings, setParkings] = useState([]);
+  const [routes, setRoutes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [editingBus, setEditingBus] = useState(null);
@@ -33,6 +35,15 @@ const Bus = () => {
     }
   };
 
+  const fetchRoutes = async () => {
+    try {
+      const data = await trouteApiService.getAllRoutes();
+      setRoutes(data);
+    } catch (error) {
+      message.error("Error al cargar las rutas: " + error.message);
+    }
+  };
+
   const fetchParkings = async () => {
     try {
       const data = await parkingApiService.getAllParking();
@@ -45,6 +56,7 @@ const Bus = () => {
   useEffect(() => {
     fetchBuses();
     fetchParkings();
+    fetchRoutes();
   }, []);
 
   const columns = [
@@ -67,6 +79,15 @@ const Bus = () => {
       title: "Estado",
       dataIndex: "estado",
       key: "estado",
+    },
+    {
+      title: "Ruta",
+      dataIndex: "id_ruta",
+      key: "id_ruta",
+      render: (id_ruta) => {
+        const route = routes.find((r) => r.id_ruta === id_ruta);
+        return route ? route.nombre : "Desconocida";
+      },
     },
     {
       title: "Parqueo",
@@ -111,6 +132,7 @@ const Bus = () => {
       capacidad: bus.capacidad,
       estado: bus.estado,
       id_parqueo: bus.id_parqueo,
+      id_ruta: bus.id_ruta,
     });
     setIsModalVisible(true);
   };
@@ -144,6 +166,7 @@ const Bus = () => {
           capacidad: values.capacidad,
           estado: values.estado,
           id_parqueo: values.id_parqueo,
+          id_ruta: values.id_ruta,
         };
 
         await busApiService.updateBus(editingBus.id_bus, updateData);
@@ -154,6 +177,7 @@ const Bus = () => {
           capacidad: values.capacidad,
           estado: values.estado,
           id_parqueo: values.id_parqueo,
+          id_ruta: values.id_ruta,
         };
 
         await busApiService.createBus(createData);
@@ -236,7 +260,24 @@ const Bus = () => {
               </Select.Option>
             </Select>
           </Form.Item>
-
+          <Form.Item
+            name="id_ruta"
+            label="Ruta"
+            rules={[
+              {
+                required: true,
+                message: "Por favor selecciona la ruta",
+              },
+            ]}
+          >
+            <Select placeholder="Selecciona una ruta">
+              {routes.map((route) => (
+                <Select.Option key={route.id_ruta} value={route.id_ruta}>
+                  {route.nombre}
+                </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
           <Form.Item
             name="id_parqueo"
             label="Parqueo"

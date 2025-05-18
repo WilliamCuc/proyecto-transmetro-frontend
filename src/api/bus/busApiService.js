@@ -32,6 +32,7 @@ export const busApiService = {
         capacidad: busData.capacidad.toString(),
         estado: busData.estado,
         id_parqueo: busData.id_parqueo.toString(),
+        id_ruta: busData.id_ruta.toString(),
       });
       const response = await axiosService.post(
         `${BUS_API_ROUTES.BUS_CREATE}?${params.toString()}`
@@ -50,6 +51,7 @@ export const busApiService = {
         capacidad: busData.capacidad.toString(),
         estado: busData.estado,
         id_parqueo: busData.id_parqueo.toString(),
+        id_ruta: busData.id_ruta.toString(),
       });
       const response = await axiosService.put(
         `${BUS_API_ROUTES.BUS_UPDATE}?${params.toString()}`
