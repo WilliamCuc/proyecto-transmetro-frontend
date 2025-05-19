@@ -8,7 +8,7 @@ import {
   SettingOutlined,
   UserOutlined,
   SwapOutlined,
-  FilePdfOutlined,
+  FileSearchOutlined,
   BranchesOutlined,
   FullscreenExitOutlined,
   CarOutlined,
@@ -20,6 +20,7 @@ import {
   UserSwitchOutlined,
   EnvironmentOutlined,
   VerticalAlignTopOutlined,
+  TagOutlined,
 } from "@ant-design/icons";
 import { Button, Layout, Menu, theme, Dropdown, Avatar, Badge } from "antd";
 import "./Home.css";
@@ -37,6 +38,9 @@ import Schedule from "../Schedule/Schedule";
 import Stop from "../Stop/Stop";
 import Guard from "../Guard/Guard";
 import Access from "../Access/Access";
+import Ticket from "../Ticket/Ticket";
+import ReportGuard from "../Report/ReportGuard";
+import ReportSoldTicket from "../Report/ReportSoldTicket";
 
 const { Header, Sider, Content } = Layout;
 
@@ -81,11 +85,20 @@ export default function Home() {
       case "2-9":
         navigate("/home/guard");
         break;
+      case "3-1":
+        navigate("/home/report-guard");
+        break;
+      case "3-2":
+        navigate("/home/report-sold-ticket");
+        break;
       case "4":
         navigate("/home/schedule");
         break;
       case "5":
         navigate("/home/stops");
+        break;
+      case "6":
+        navigate("/home/ticket");
         break;
     }
   };
@@ -168,13 +181,13 @@ export default function Home() {
               children: [
                 {
                   key: "3-1",
-                  icon: <FilePdfOutlined />,
-                  label: "Ventas",
+                  icon: <FileSearchOutlined />,
+                  label: "Guardias",
                 },
                 {
                   key: "3-2",
-                  icon: <FilePdfOutlined />,
-                  label: "Inventario",
+                  icon: <FileSearchOutlined />,
+                  label: "Ventas",
                 },
               ],
             },
@@ -187,6 +200,11 @@ export default function Home() {
               key: "5",
               icon: <EnvironmentOutlined />,
               label: "Paradas",
+            },
+            {
+              key: "6",
+              icon: <TagOutlined />,
+              label: "Boletos",
             },
           ]}
         />
@@ -287,6 +305,9 @@ export default function Home() {
             <Route path="stops" element={<Stop />} />
             <Route path="guard" element={<Guard />} />
             <Route path="access" element={<Access />} />
+            <Route path="ticket" element={<Ticket />} />
+            <Route path="report-guard" element={<ReportGuard />} />
+            <Route path="report-sold-ticket" element={<ReportSoldTicket />} />
             <Route index element={<Dashboard />} />
           </Routes>
         </Content>
