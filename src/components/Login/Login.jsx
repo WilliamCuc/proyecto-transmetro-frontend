@@ -3,7 +3,7 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/Auth/AuthContext";
-import { userApiService } from "../../api/User/userApiService";
+import { userApiService } from "../../api/user/userApiService";
 import "./Login.css";
 import logo from "../../assets/images/logo-proyecto.png";
 
