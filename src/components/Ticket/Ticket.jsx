@@ -18,7 +18,7 @@ import {
   DollarOutlined,
 } from "@ant-design/icons";
 import { ticketApiService } from "../../api/ticket/ticketApiService";
-import { userApiService } from "../../api/User/userApiService";
+import { userApiService } from "../../api/user/userApiService";
 import { trouteApiService } from "../../api/troute/trouteApiService";
 import dayjs from "dayjs";
 

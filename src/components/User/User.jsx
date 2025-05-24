@@ -1,8 +1,17 @@
 // src/components/User/User.jsx
-import React, { useState, useEffect } from 'react';
-import { Table, Button, Space, Modal, Form, Input, Select, message } from 'antd';
-import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
-import { userApiService } from '../../api/User/userApiService';
+import React, { useState, useEffect } from "react";
+import {
+  Table,
+  Button,
+  Space,
+  Modal,
+  Form,
+  Input,
+  Select,
+  message,
+} from "antd";
+import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
+import { userApiService } from "../../api/user/userApiService";
 
 const User = () => {
   const [users, setUsers] = useState([]);
@@ -17,7 +26,7 @@ const User = () => {
       const data = await userApiService.getAllUsers();
       setUsers(data);
     } catch (error) {
-      message.error('Error al cargar los usuarios' + error);
+      message.error("Error al cargar los usuarios" + error);
     } finally {
       setLoading(false);
     }
@@ -29,61 +38,59 @@ const User = () => {
 
   const columns = [
     {
-      title: 'ID',
-      dataIndex: 'id_usuario',
-      key: 'id_usuario',
+      title: "ID",
+      dataIndex: "id_usuario",
+      key: "id_usuario",
     },
     {
-      title: 'Nombre',
-      dataIndex: 'nombre',
-      key: 'nombre',
+      title: "Nombre",
+      dataIndex: "nombre",
+      key: "nombre",
     },
     {
-      title: 'Apellido',
-      dataIndex: 'apellido',
-      key: 'apellido',
+      title: "Apellido",
+      dataIndex: "apellido",
+      key: "apellido",
     },
     {
-      title: 'Correo',
-      dataIndex: 'correo',
-      key: 'correo',
+      title: "Correo",
+      dataIndex: "correo",
+      key: "correo",
     },
     {
-      title: 'Rol',
-      dataIndex: 'rol',
-      key: 'rol',
+      title: "Rol",
+      dataIndex: "rol",
+      key: "rol",
       render: (rol) => {
         const roles = {
-          1: 'Administrador',
-          2: 'Usuario',
+          1: "Administrador",
+          2: "Usuario",
         };
-        return roles[rol] || 'Desconocido';
-      }
+        return roles[rol] || "Desconocido";
+      },
     },
     {
-      title: 'Estado',
-      dataIndex: 'estado',
-      key: 'estado',
-      render: (estado) => estado ? 'Activo' : 'Inactivo'
+      title: "Estado",
+      dataIndex: "estado",
+      key: "estado",
+      render: (estado) => (estado ? "Activo" : "Inactivo"),
     },
     {
-      title: 'Acciones',
-      key: 'acciones',
+      title: "Acciones",
+      key: "acciones",
       render: (_, record) => (
         <Space>
-          <Button 
-            type="primary" 
+          <Button
+            type="primary"
             icon={<EditOutlined />}
             onClick={() => handleEdit(record)}
-          >
-          </Button>
-          <Button 
-            type="primary" 
-            danger 
+          ></Button>
+          <Button
+            type="primary"
+            danger
             icon={<DeleteOutlined />}
             onClick={() => handleDelete(record.id_usuario)}
-          >
-          </Button>
+          ></Button>
         </Space>
       ),
     },
@@ -101,25 +108,25 @@ const User = () => {
     form.setFieldsValue({
       ...user,
       rol: user.rol.toString(),
-      estado: user.estado.toString()
+      estado: user.estado.toString(),
     });
     setIsModalVisible(true);
   };
 
   const handleDelete = async (userId) => {
     Modal.confirm({
-      title: '¿Estás seguro de eliminar este usuario?',
-      content: 'Esta acción no se puede deshacer',
-      okText: 'Sí',
-      okType: 'danger',
-      cancelText: 'No',
+      title: "¿Estás seguro de eliminar este usuario?",
+      content: "Esta acción no se puede deshacer",
+      okText: "Sí",
+      okType: "danger",
+      cancelText: "No",
       onOk: async () => {
         try {
           await userApiService.deleteUser(userId);
-          message.success('Usuario eliminado exitosamente');
+          message.success("Usuario eliminado exitosamente");
           fetchUsers();
         } catch (error) {
-          message.error('Error al eliminar el usuario' + error);
+          message.error("Error al eliminar el usuario" + error);
         }
       },
     });
@@ -127,56 +134,52 @@ const User = () => {
 
   const handleModalOk = async () => {
     try {
-        const values = await form.validateFields();
-        
-        if (editingUser) {
-            const updateData = {
-                nombre: values.nombre,
-                apellido: values.apellido,
-                correo: values.correo,
-                rol: values.rol,
-                estado: values.estado
-            };
-            
-            await userApiService.updateUser(editingUser.id_usuario, updateData);
-            message.success('Usuario actualizado exitosamente');
-        } else {
-            const createData = {
-                nombre: values.nombre,
-                apellido: values.apellido,
-                correo: values.correo,
-                contrasena: values.contrasena,
-                rol: values.rol,
-                estado: values.estado
-            };
-            
-            await userApiService.createUser(createData);
-            message.success('Usuario creado exitosamente');
-        }
-        
-        setIsModalVisible(false);
-        form.resetFields();
-        fetchUsers();
+      const values = await form.validateFields();
+
+      if (editingUser) {
+        const updateData = {
+          nombre: values.nombre,
+          apellido: values.apellido,
+          correo: values.correo,
+          rol: values.rol,
+          estado: values.estado,
+        };
+
+        await userApiService.updateUser(editingUser.id_usuario, updateData);
+        message.success("Usuario actualizado exitosamente");
+      } else {
+        const createData = {
+          nombre: values.nombre,
+          apellido: values.apellido,
+          correo: values.correo,
+          contrasena: values.contrasena,
+          rol: values.rol,
+          estado: values.estado,
+        };
+
+        await userApiService.createUser(createData);
+        message.success("Usuario creado exitosamente");
+      }
+
+      setIsModalVisible(false);
+      form.resetFields();
+      fetchUsers();
     } catch (error) {
-        console.error('Error:', error);
-        message.error('Error al guardar el usuario');
+      console.error("Error:", error);
+      message.error("Error al guardar el usuario");
     }
-};
+  };
 
   return (
     <div>
       <div style={{ marginBottom: 16 }}>
-        <Button 
-          type="primary" 
-          icon={<PlusOutlined />}
-          onClick={handleAdd}
-        >
+        <Button type="primary" icon={<PlusOutlined />} onClick={handleAdd}>
           Agregar Usuario
         </Button>
       </div>
 
-      <Table 
-        columns={columns} 
+      <Table
+        columns={columns}
         dataSource={users}
         rowKey="id_usuario"
         loading={loading}
@@ -189,22 +192,21 @@ const User = () => {
         onCancel={() => setIsModalVisible(false)}
         width={600}
       >
-        <Form
-          form={form}
-          layout="vertical"
-        >
+        <Form form={form} layout="vertical">
           <Form.Item
             name="nombre"
             label="Nombre"
-            rules={[{ required: true, message: 'Por favor ingresa el nombre' }]}
+            rules={[{ required: true, message: "Por favor ingresa el nombre" }]}
           >
             <Input />
           </Form.Item>
-          
+
           <Form.Item
             name="apellido"
             label="Apellido"
-            rules={[{ required: true, message: 'Por favor ingresa el apellido' }]}
+            rules={[
+              { required: true, message: "Por favor ingresa el apellido" },
+            ]}
           >
             <Input />
           </Form.Item>
@@ -213,8 +215,8 @@ const User = () => {
             name="correo"
             label="Correo"
             rules={[
-              { required: true, message: 'Por favor ingresa el correo' },
-              { type: 'email', message: 'Ingresa un correo válido' }
+              { required: true, message: "Por favor ingresa el correo" },
+              { type: "email", message: "Ingresa un correo válido" },
             ]}
           >
             <Input />
@@ -224,7 +226,9 @@ const User = () => {
             <Form.Item
               name="contrasena"
               label="Contraseña"
-              rules={[{ required: true, message: 'Por favor ingresa la contraseña' }]}
+              rules={[
+                { required: true, message: "Por favor ingresa la contraseña" },
+              ]}
             >
               <Input.Password />
             </Form.Item>
@@ -233,7 +237,7 @@ const User = () => {
           <Form.Item
             name="rol"
             label="Rol"
-            rules={[{ required: true, message: 'Por favor selecciona el rol' }]}
+            rules={[{ required: true, message: "Por favor selecciona el rol" }]}
           >
             <Select>
               <Select.Option value="1">Administrador</Select.Option>
@@ -244,7 +248,9 @@ const User = () => {
           <Form.Item
             name="estado"
             label="Estado"
-            rules={[{ required: true, message: 'Por favor selecciona el estado' }]}
+            rules={[
+              { required: true, message: "Por favor selecciona el estado" },
+            ]}
           >
             <Select>
               <Select.Option value="1">Activo</Select.Option>
