@@ -48,7 +48,7 @@ export const trouteApiService = {
       const params = new URLSearchParams({
         route_id: routeId.toString(),
         nombre: routeData.nombre,
-        descripcion: routeData.ubicacion,
+        descripcion: routeData.descripcion,
         id_linea: routeData.id_linea.toString(),
       });
       const response = await axiosService.put(
